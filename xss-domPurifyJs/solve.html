@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple XSS Example (Safe)</title>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.4/dist/purify.min.js"></script>
+</head>
+<body>
+    <h1>Simple XSS Example (Safe)</h1>
+    <form method="GET">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Hello, <span id="display-name"></span>!</h2>
+
+    <script>
+        // Function to get URL parameters
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            let results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get the 'name' parameter
+        var userInput = getParameterByName('name');
+
+        if (userInput) {
+            // Clean the input using DOMPurify
+            var cleanInput = DOMPurify.sanitize(userInput);
+
+            // Display the sanitized input
+            document.getElementById('display-name').innerText = cleanInput;
+        }
+    </script>
+</body>
+</html>

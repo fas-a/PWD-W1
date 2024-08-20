@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple XSS Vulnerable Page</title>
+</head>
+<body>
+    <h1>Simple XSS Example</h1>
+    <form method="GET">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Hello, <span id="display-name">
+        <!-- This is where the XSS vulnerability is -->
+        <script>
+            document.write(decodeURIComponent(window.location.search.substring(1).split('=')[1]));
+        </script>
+    </span>!</h2>
+</body>
+</html>

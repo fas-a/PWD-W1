@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected against XSS</title>
+</head>
+<body>
+    <h1>Protected XSS Example with DOMPurify</h1>
+
+    <!-- Formulir Input -->
+    <form method="GET">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Your input:</h2>
+    <div id="output">
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.10/dist/purify.min.js"></script>
+        <script>
+            var userInput = decodeURIComponent(window.location.search.substring(1).split('=')[1]);
+            var cleanInput = DOMPurify.sanitize(userInput);
+            document.write(cleanInput);
+        </script>
+    </div>
+
+</body>
+</html>

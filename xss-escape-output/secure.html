@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected against XSS</title>
+</head>
+<body>
+    <h1>Protected XSS Example with Output Escaping</h1>
+
+    <!-- Formulir Input -->
+    <form method="GET">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Your input:</h2>
+    <div id="output">
+        <script>
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            var userInput = decodeURIComponent(window.location.search.substring(1).split('=')[1]);
+            var escapedInput = escapeHtml(userInput);
+            document.write(escapedInput);
+        </script>
+    </div>
+</body>
+</html>

@@ -12,10 +12,10 @@ app.use(session({
   secret: 'mySecretKey',
   resave: false,
   saveUninitialized: false,
-  //delete the cookie if you want this not secure
   cookie: {
     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
     secure: true, // Ensures the cookie is sent over HTTPS only
+    sameSite: 'Strict'
   }
 }));
 

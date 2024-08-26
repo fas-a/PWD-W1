@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSP Protected Page</title>
+</head>
+
+<body>
+    <h1>Protected by CSP</h1>
+    <p>User Input: <%- userInput %></p>
+    <form method="GET" action="/">
+        <input type="text" name="input" placeholder="Enter something">
+        <button type="submit">Submit</button>
+    </form>
+    <!-- Contoh skrip yang dilindungi dengan nonce -->
+    <script nonce="123456">
+        console.log('CSP is protecting this page!');
+    </script>
+</body>
+
+</html>
